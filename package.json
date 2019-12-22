@@ -1,0 +1,26 @@
+{
+  "name": "tw-api-challenge",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Brent Engelbrecht <brent@zooloo.co.za>",
+  "license": "MIT",
+  "dependencies": {
+    "aws-sdk": "^2.595.0",
+    "dotenv": "^8.2.0",
+    "koa": "^2.11.0",
+    "koa-body": "^4.1.1",
+    "koa-jwt": "^3.6.0",
+    "koa-router": "^7.4.0"
+  },
+  "devDependencies": {
+    "mocha": "^6.2.2",
+    "should": "^13.2.3",
+    "supertest": "^4.0.2"
+  }
+}
