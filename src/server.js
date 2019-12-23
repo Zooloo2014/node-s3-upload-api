@@ -6,8 +6,19 @@ const bodyParser = require('koa-bodyparser')
 const authorisation = require('./middleware/authorisation')
 const userRoutes = require('./routes/users')
 const fileRoutes = require('./routes/files')
+const repository = require('./datastore/repository')
+const MongoClient = require('mongodb').MongoClient
 
 const port = process.env.PORT || 5000
+
+MongoClient
+  .connect(`${process.env.DB_URL}`, { useNewUrlParser: true })
+  .catch(err => {
+    console.error(err.stack)
+  })
+  .then(client => {
+    repository.dbClient(client)
+  })
 
 const app = new Koa()
 const router = koaRouter()

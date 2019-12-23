@@ -1,14 +1,20 @@
 const jwt = require('jsonwebtoken')
 const repository = require('../datastore/repository')
 
-function register (ctx) {
+async function register (ctx) {
+  const payload = JSON.parse(ctx.request.body)
   const {
     firstName,
     lastName,
     userName,
     password,
     email
-  } = ctx.request
+  } = payload
+
+  const userDetails = await repository.getUserDetails(userName)
+  if (userDetails) {
+    ctx.throw(409, 'User already exists.')
+  }
 
   repository.saveUserDetails({
     firstName,
@@ -17,16 +23,18 @@ function register (ctx) {
     password,
     email
   })
+
+  ctx.response.status = 201
 }
 
-function login (ctx) {
-  const { username, password } = ctx.request.body
-  if (!username) ctx.throw(422, 'Username required.')
+async function login (ctx) {
+  const { userName, password } = ctx.request.body
+  if (!userName) ctx.throw(422, 'Username required.')
   if (!password) ctx.throw(422, 'Password required.')
 
-  const userDetails = repository.authenticateUser(username, password) 
+  const userDetails = await repository.authenticateUser(userName, password)
   if (!userDetails) {
-    ctx.throw(err.status || 401, err.text)
+    ctx.throw(401, 'Not authorised.')
   }
 
   const payload = { sub: userDetails.username }
