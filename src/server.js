@@ -1,9 +1,10 @@
-const dotenv = require('dotenv').config()
+require('dotenv').config()
 const Koa = require('koa')
 const koaRouter = require('koa-router')
 const koaBody = require('koa-body')
+const bodyParser = require('koa-bodyparser')
 const fileService = require('./fileService')
-
+const userService = require('./routes/userService')
 const port = process.env.PORT || 5000
 
 const app = new Koa()
@@ -11,6 +12,7 @@ const app = new Koa()
 const router = koaRouter()
 
 router
+  .post('/register', bodyParser(), userService.register)
   .post('/uploads', async ctx => {
     const fileToUpload = ctx.request.files.file
     const { key, url } = await fileService.uploadFile({
