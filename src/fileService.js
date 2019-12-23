@@ -4,7 +4,6 @@ const fs = require('fs')
 const uploadFile = async ({ fileName, filePath, fileType }) => {
     return new Promise((resolve, reject) => {
         aws.config.update({
-            //region: 'nyc3',
             accessKeyId: process.env.ACCESS_KEY,
             secretAccessKey: process.env.SECRET_ACCESS_KEY
         })
@@ -40,7 +39,6 @@ const uploadFile = async ({ fileName, filePath, fileType }) => {
 const downloadFile = async fileName => {
     return new Promise((resolve, reject) => {
         aws.config.update({
-            //region: 'nyc3',
             accessKeyId: process.env.ACCESS_KEY,
             secretAccessKey: process.env.SECRET_ACCESS_KEY
         })
