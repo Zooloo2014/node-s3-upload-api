@@ -57,10 +57,7 @@ const downloadFile = async fileName => {
             if (err) {
                 reject(err)
             } else if (data) {
-                resolve({
-                    key: data.Key,
-                    url: data.Location
-                })
+                resolve(data)
             }
         })
     })
