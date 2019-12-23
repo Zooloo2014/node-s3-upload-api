@@ -22,8 +22,8 @@ router
     })
     .get('/uploads/:id', async ctx => {
         const fileToDownload = ctx.params.id
-        const data = await fileService.downloadFile(fileToDownload)
-        ctx.body = data
+        const fileData = await fileService.downloadFile(fileToDownload)
+        ctx.body = fileData.Body
     })
 
 app.use(koaBody({ multipart: true }))
