@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken')
 
 const secret = process.env.JWT_SECRET || 'secret'
 
-async function authenticateUser (ctx, next) {
+async function authorise (ctx, next) {
   if (!ctx.headers.authorization) {
     ctx.throw(403, 'No token.')
   }
@@ -10,12 +10,12 @@ async function authenticateUser (ctx, next) {
   const token = ctx.headers.authorization.split(' ')[1]
 
   try {
-    ctx.request.jwtPayload = jwt.verify(token, secret);
+    ctx.request.jwtPayload = jwt.verify(token, secret)
   } catch (err) {
-    ctx.throw(err.status || 403, err.text);
+    ctx.throw(err.status || 403, err.text)
   }
 
   await next()
 }
 
-module.exports = authenticateUser
+module.exports = authorise

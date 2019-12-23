@@ -3,19 +3,20 @@ const Koa = require('koa')
 const koaRouter = require('koa-router')
 const koaBody = require('koa-body')
 const bodyParser = require('koa-bodyparser')
-const authentication = require('./middleware/authentication')
+const authorisation = require('./middleware/authorisation')
 const userRoutes = require('./routes/users')
 const fileRoutes = require('./routes/files')
+
 const port = process.env.PORT || 5000
 
 const app = new Koa()
-
 const router = koaRouter()
 
 router
+  .post('/register', bodyParser(), userRoutes.register)
   .post('/login', bodyParser(), userRoutes.login)
-  .post('/uploads', authentication, fileRoutes.upload)
-  .get('/uploads/:id', authentication, fileRoutes.download)
+  .post('/uploads', authorisation, fileRoutes.upload)
+  .get('/uploads/:id', authorisation, fileRoutes.download)
 
 app
   .use(koaBody({ multipart: true }))
