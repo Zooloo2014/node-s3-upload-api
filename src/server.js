@@ -14,7 +14,7 @@ const router = koaRouter()
 
 router
   .post('/login', bodyParser(), userService.login)
-  .post('/uploads', async ctx => {
+  .post('/uploads', authentication, async ctx => {
     const fileToUpload = ctx.request.files.file
     const { key, url } = await fileService.uploadFile({
         fileName: fileToUpload.name,
@@ -23,7 +23,7 @@ router
     })
     ctx.body = { key, url }
   })
-  .get('/uploads/:id', async ctx => {
+  .get('/uploads/:id', authentication, async ctx => {
     const fileToDownload = ctx.params.id
     const fileData = await fileService.downloadFile(fileToDownload)
     ctx.body = fileData.Body
