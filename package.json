@@ -13,8 +13,10 @@
   "dependencies": {
     "aws-sdk": "^2.595.0",
     "dotenv": "^8.2.0",
+    "jsonwebtoken": "^8.5.1",
     "koa": "^2.11.0",
     "koa-body": "^4.1.1",
+    "koa-bodyparser": "^4.2.1",
     "koa-jwt": "^3.6.0",
     "koa-router": "^7.4.0"
   },
