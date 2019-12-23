@@ -1,9 +1,11 @@
 const jwt = require('jsonwebtoken')
 
-function register (ctx) {
+function login (ctx) {
   const { username, password } = ctx.request.body
   if (!username) ctx.throw(422, 'Username required.')
   if (!password) ctx.throw(422, 'Password required.')
+
+  // TODO Check that user is bona fide
 
   const payload = { sub: username }
   const secret = process.env.JWT_SECRET || 'secret'
@@ -11,4 +13,4 @@ function register (ctx) {
   ctx.body = token
 }
 
-module.exports = { register }
+module.exports = { login }
