@@ -30,8 +30,6 @@ app
   .use(koaBody({ multipart: true }))
   .use(router.routes())
   .use(router.allowedMethods())
-
-app
   .listen(port, () => {
     console.info(`Server running on http://localhost:${port}`)
   })
