@@ -49,7 +49,7 @@ async function login (ctx) {
     ctx.throw(401, 'Not authorised.')
   }
 
-  const payload = { sub: userDetails.username }
+  const payload = { sub: userDetails.userName }
   const secret = process.env.JWT_SECRET || 'secret'
   const token = jwt.sign(payload, secret);
   ctx.body = token
