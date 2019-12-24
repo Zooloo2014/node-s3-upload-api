@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken')
 const repository = require('../datastore/repository')
+const hashingService = require('../services/hashingService')
 
 async function register (ctx) {
   const payload = JSON.parse(ctx.request.body)
@@ -16,11 +17,15 @@ async function register (ctx) {
     ctx.throw(409, 'User already exists.')
   }
 
+  const salt = hashingService.generateSalt(16)
+  const hashed = hashingService.hashWithSalt(password, salt)
+
   repository.saveUserDetails({
     firstName,
     lastName,
     userName,
-    password,
+    password: hashed.passwordHash,
+    salt: hashed.salt,
     email
   })
 
@@ -32,8 +37,15 @@ async function login (ctx) {
   if (!userName) ctx.throw(422, 'Username required.')
   if (!password) ctx.throw(422, 'Password required.')
 
-  const userDetails = await repository.authenticateUser(userName, password)
+  const userDetails = await repository.getUserDetails(userName)
   if (!userDetails) {
+    ctx.throw(401, 'Not authorised.')
+  }
+
+  const hashed = hashingService.hashWithSalt(password, userDetails.salt)
+
+  const authed = await repository.authenticateUser(userName, hashed.passwordHash)
+  if (!authed) {
     ctx.throw(401, 'Not authorised.')
   }
 
