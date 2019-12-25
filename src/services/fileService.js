@@ -77,7 +77,13 @@ const uploadFile = async ({ fileName, filePath, fileType }) => {
 }
 
 const downloadAllowed = async (fileName, userName) => {
-  const tags = await getTags(fileName)
+  try {
+    const tags = await getTags(fileName)
+  } catch(err) {
+    console.error(`downloadAllowed: Checking ${fileName}`)
+    console.error(err)
+    return false
+  }
   return (tags.TagSet.filter((tag) => (tag.Key == 'username') && (tag.Value == userName))).length == 1
 }
 
