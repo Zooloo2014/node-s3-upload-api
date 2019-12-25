@@ -21,7 +21,6 @@ MongoClient
     repository.dbClient(client)
   })
 
-const app = new Koa()
 const router = koaRouter()
 
 router
@@ -29,6 +28,8 @@ router
   .post('/login', bodyParser(), userRoutes.login)
   .post('/uploads', authorisation, fileRoutes.upload)
   .get('/uploads/:id', authorisation, fileRoutes.download)
+
+const app = new Koa()
 
 app
   .use(koaBody({ multipart: true }))
@@ -50,8 +51,8 @@ https
   .createServer(config.https.options, app.callback())
   .listen(config.https.port, err => {
     if (!!err) {
-      console.error('HTTPS server failed to start ', err, (err && err.stack));
+      console.error('HTTPS server failed to start ', err, (err && err.stack))
     } else {
-      console.log(`HTTPS server running at https://${config.domain}:${config.https.port}`);
+      console.log(`HTTPS server running at https://${config.domain}:${config.https.port}`)
     }
   })
