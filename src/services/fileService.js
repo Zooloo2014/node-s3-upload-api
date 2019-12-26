@@ -49,10 +49,10 @@ const getTags = async key => {
   })
 }
 
-const uploadFile = async ({ fileName, filePath, fileType }) => {
+const uploadFile = async (fileObject) => {
   return new Promise((resolve, reject) => {
     getS3Ref()
-    const stream = fs.createReadStream(filePath)
+    const stream = fs.createReadStream(fileObject.path)
     stream.on('error', err => {
         reject(err)
     })
@@ -60,8 +60,8 @@ const uploadFile = async ({ fileName, filePath, fileType }) => {
     s3.upload({
       Bucket: process.env.BUCKET,
       Body: stream,
-      Key: fileName, 
-      ContentType: fileType
+      Key: fileObject.name, 
+      ContentType: fileObject.type
     },
     (err, data) => {
       if (err) {

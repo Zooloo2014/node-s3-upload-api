@@ -3,11 +3,7 @@ const fileService = require('../services/fileService')
 async function upload (ctx) {
   const fileToUpload = ctx.request.files.file
   const currentUser = ctx.request.jwtPayload.sub
-  const { key, url } = await fileService.uploadFile({
-      fileName: fileToUpload.name,
-      filePath: fileToUpload.path,
-      fileType: fileToUpload.type
-  })
+  const { key, url } = await fileService.uploadFile(fileToUpload)
   await fileService.setTags(key, [{ Key: 'username', Value: `${currentUser}` }])
   ctx.body = { key, url }
 }
@@ -21,6 +17,7 @@ async function download (ctx) {
   }
 
   const fileData = await fileService.downloadFile(fileToDownload)
+  ctx.set('Content-Type', fileData.ContentType)
   ctx.body = fileData.Body
 }
 
