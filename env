@@ -4,7 +4,7 @@ CA_KEY=certs/server.key
 CA_CERT=certs/server.cert
 DB_URL=mongodb://localhost:27017/apiUsers
 DB_NAMESPACE=api
-DB_COLLECTION=apiUsersJWT_SECRET=X
+DB_COLLECTION=apiUsers
 JWT_SECRET=Y
 BUCKET=Z
 ACCESS_KEY=U
