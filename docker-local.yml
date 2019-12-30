@@ -1,6 +1,27 @@
-version: "3.1"
+version: "3.7"
 services:
+  app:
+    container_name: node_s3_upload_api
+    build: .
+    ports:
+      - "5000:5000"
+    env_file: .env
+    environment:
+      - DB_URL=mongodb://mongodb:27017/apiUsers
+    volumes:
+      - ./certs:/usr/src/app/certs:ro
+    networks:
+      hostnet: {}
+    links:
+      - mongodb
   mongodb:
+    container_name: mongo
     image: mongo:latest
     ports:
-      - 27017:27017
+      - "27017:27017"
+    networks:
+      hostnet: {}
+networks:
+  hostnet:
+    driver: bridge
+    name: my-app-net
