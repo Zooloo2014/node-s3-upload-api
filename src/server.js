@@ -14,9 +14,7 @@ const MongoClient = require('mongodb').MongoClient
 
 MongoClient
   .connect(`${process.env.DB_URL}`, { useNewUrlParser: true })
-  .catch(err => {
-    console.error(err.stack)
-  })
+  .catch(err => console.error(err.stack))
   .then(client => repository.dbClient(client))
 
 const router = koaRouter()
