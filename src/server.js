@@ -17,9 +17,7 @@ MongoClient
   .catch(err => {
     console.error(err.stack)
   })
-  .then(client => {
-    repository.dbClient(client)
-  })
+  .then(client => repository.dbClient(client))
 
 const router = koaRouter()
 
