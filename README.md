@@ -24,7 +24,7 @@ To run: `docker-compose -f docker-local.yml up`
 
 Access the API: 
 
-- `https://localhost:5000/register`
-- `https://localhost:5000/login`
-- `https://localhost:5000/uploads`
-- `https://localhost:5000/uploads/<filename>`
+- POST `https://localhost:5000/register`
+- POST `https://localhost:5000/login`
+- POST `https://localhost:5000/uploads`
+- GET `https://localhost:5000/uploads/<filename>`
