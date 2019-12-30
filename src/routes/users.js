@@ -3,7 +3,7 @@ const repository = require('../datastore/repository')
 const hashingService = require('../services/hashingService')
 
 async function register (ctx) {
-  const payload = JSON.parse(ctx.request.body)
+  const payload = ctx.request.body
   const {
     firstName,
     lastName,
