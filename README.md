@@ -3,9 +3,11 @@
 A simple API to securely upload files to an AWS S3 bucket (and retrieve them again)
 
 
-## Run locally
+## Deployment
 
-Update env with appropriate values and copy/rename to .env
+### Build and run locally on Docker
+
+1. Update env with appropriate values and copy/rename to .env
 
 - DOMAIN=`localhost`
 - PORT=`5000`
@@ -20,7 +22,14 @@ Update env with appropriate values and copy/rename to .env
 - SECRET_ACCESS_KEY=`<AWS secret>`
 
 
-To run: `docker-compose -f docker-local.yml up`
+2. Start the service
+
+- To rebuild the Docker image and run: `docker-compose -f docker-local.yml up --build`
+- To run without rebuilding: `docker-compose -f docker-local.yml up`
+
+
+## Using the API
+
 
 Access the API: 
 
