@@ -1,0 +1,189 @@
+{
+	"info": {
+		"_postman_id": "017a9332-376c-49ea-b440-76e964e6695a",
+		"name": "node-s3-upload-api-test-pack",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Register User",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "text/plain",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"firstName\": \"Mickey\",\n    \"lastName\": \"Mouse\",\n    \"userName\": \"mick\",\n    \"password\": \"mous\",\n    \"email\": \"mickey@disney.com\"\n}"
+				},
+				"url": {
+					"raw": "https://localhost:5000/v1/register",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"v1",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login User",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/octet-stream"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "userName",
+							"value": "mick",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "mous",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://localhost:5000/v1/login",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"v1",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "File upload",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIjgfd5cCI6IkpXVCJ9.eyJzdWIiOiJ6b29sb28iLCJdjfXQiOjE1NzczMTM3OTl9._ZRT8tBFwwWsyStklsl34scrZDHN0ZIwx3iluK2MsXeY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "multipart/form-data",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "file-upload",
+							"type": "text"
+						},
+						{
+							"key": "file",
+							"type": "file",
+							"src": "fiji.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://localhost:5000/v1/uploads",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"v1",
+						"uploads"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "File Download",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsdjDcCI6IkpXVCJ9.eyJzdWIiOiJ6ll6dfiLCJpYXQiOjE1NzczMTM3OTl9._ZRT8tBFwwWsySTPT24qscrZDHN0ZIwx3isDfgXeY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/octet-stream",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:5000/v1/uploads/fiji.jpg",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"v1",
+						"uploads",
+						"fiji.jpg"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
