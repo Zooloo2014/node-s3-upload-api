@@ -11,6 +11,7 @@ const userRoutes = require('./routes/users')
 const fileRoutes = require('./routes/files')
 const repository = require('./datastore/repository')
 const MongoClient = require('mongodb').MongoClient
+const apiVersion = '/v1'
 
 MongoClient
   .connect(`${process.env.DB_URL}`, { useNewUrlParser: true })
@@ -20,10 +21,10 @@ MongoClient
 const router = koaRouter()
 
 router
-  .post('/register', bodyParser(), userRoutes.register)
-  .post('/login', bodyParser(), userRoutes.login)
-  .post('/uploads', authorisation, fileRoutes.upload)
-  .get('/uploads/:id', authorisation, fileRoutes.download)
+  .post(apiVersion + '/register', bodyParser(), userRoutes.register)
+  .post(apiVersion + '/login', bodyParser(), userRoutes.login)
+  .post(apiVersion + '/uploads', authorisation, fileRoutes.upload)
+  .get(apiVersion + '/uploads/:id', authorisation, fileRoutes.download)
 
 const app = new Koa()
 
