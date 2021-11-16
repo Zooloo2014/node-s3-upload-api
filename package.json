@@ -11,7 +11,7 @@
   "author": "Brent Engelbrecht <brent@zooloo.co.za>",
   "license": "MIT",
   "dependencies": {
-    "aws-sdk": "^2.595.0",
+    "aws-sdk": "^2.814.0",
     "dotenv": "^8.2.0",
     "jsonwebtoken": "^8.5.1",
     "koa": "^2.11.0",
